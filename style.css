@@ -1,0 +1,434 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+     --primario: #fff;
+    --fondo: #ffe0e7;
+    --fondo-sobre: #fa85ae;
+    --solapa-sobre: #ffced7;
+    --cuerpo-sobre: #ffb8ca;
+    --sombra: rgba(0, 0, 0, 0.2);
+    --texto: #003552;
+    --corazon: #ff0040;
+}
+
+body {
+    background: var(--fondo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+h1 {
+    font-family: "Marck Script", serif;
+    text-align: center;
+    font-size: 60px;
+    margin-bottom: 50px;
+    color: #2c2c2c;
+}
+
+.contenedor {
+    width: 400px;
+}
+
+.envoltura-sobre {
+    position: relative;
+    background-color: var(--fondo-sobre);
+    box-shadow: 0 0 40px var(--sombra);
+    border-radius: 15px;
+}
+
+.sobre {
+    position: relative;
+    width: 400px;
+    height: 300px;
+}
+
+.sobre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    border-top: 180px solid var(--solapa-sobre);
+    border-right: 200px solid transparent;
+    border-left: 200px solid transparent;
+    transform-origin: top;
+    transition: all 0.5s ease-in-out 0.8s;
+    border-radius: 10px;
+}
+
+.solapa-derecha {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+    background-color: var(--cuerpo-sobre);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.solapa-izquierda {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 0, 0% 100%, 100% 100%);
+    background-color: var(--cuerpo-sobre);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.carta {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primario);
+    text-align: center;
+    box-shadow: 0 0 5px var(--sombra);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform .5s ease-in-out;
+}
+
+.contenido {
+    font-family: "Gill Sans", Calibre, sans-serif;
+    color: var(--texto);
+    text-align: left;
+    font-size: 12px;
+    border: 4px dotted var(--texto);
+    padding: 6px;
+    height: 100%;
+    line-height: 12px;
+    cursor: pointer;
+    overflow: scroll
+}
+
+.corazon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: var(--corazon);
+    transform: translate(-50%,0) rotate(45deg);
+    transition: transform 0.5s ease-in-out 1s;
+    z-index: 999;
+    cursor: pointer;
+}
+
+.corazon::before,
+.corazon::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: var(--corazon);
+    border-radius: 100%;
+}
+
+.corazon::before {
+    top: -15px;
+}
+
+.corazon::after {
+    right: 15px;
+}
+
+/*agregar clases dinamicas*/
+.abierto .sobre::before {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
+
+.abierto .corazon {
+    transform: rotate(90deg);
+    transition-delay: 0.4s;
+}
+
+.carta.mostrar-carta {
+    transform: translateY(-290px);
+    transition: transform 0.5s ease-in-out;
+}
+
+.carta.cerrando-carta {
+    transform: translateY(-290px);
+    transition: transform 0.5s ease-in-out;
+}
+
+.carta.abierta {
+    z-index: 1000;
+}
+
+.envoltura-sobre.desactivar-sobre .sobre::before {
+    pointer-events: none;
+}
+
+
+/*scroll personalizado*/
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--cuerpo-sobre);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--corazon);
+}
+
+
+/*Vista celular*/
+
+@media screen and (max-width:350px) {
+    .contenedor {
+        width: 250px;
+    }
+
+    .sobre {
+        width: 300px;
+        height: 250px;
+    }
+
+    .sobre::before {
+        border-top: 150px, solid var(--solapa-sobre);
+        border-right: 150px, solid transparent;
+        border-left: 150px, solid transparent;
+    }
+} 
+    
+
+
+
+/* Fondo brillante en cascada: sutil, suave y detrás de la carta */
+body {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% -20%, rgba(255, 155, 199, .28), transparent 55%),
+        linear-gradient(180deg, #3b172d 0%, #21101f 48%, #100d18 100%);
+}
+
+.cascada-brillante {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: .78;
+    background-image:
+        radial-gradient(1.4px 1.4px at 12% 8%, rgba(255, 220, 239, .9) 50%, transparent 75%),
+        radial-gradient(1px 1px at 32% 18%, rgba(255, 171, 211, .8) 50%, transparent 75%),
+        radial-gradient(1.7px 1.7px at 67% 5%, rgba(255, 235, 246, .85) 50%, transparent 75%),
+        radial-gradient(1px 1px at 84% 23%, rgba(255, 184, 219, .8) 50%, transparent 75%),
+        radial-gradient(1.2px 1.2px at 48% 12%, rgba(255, 215, 237, .75) 50%, transparent 75%);
+    background-size: 190px 170px, 230px 210px, 260px 190px, 210px 230px, 170px 200px;
+    animation: brillo-caida 22s linear infinite;
+}
+
+.cascada-brillante::before,
+.cascada-brillante::after,
+.cascada-brillante span {
+    content: "";
+    position: absolute;
+    inset: -45% 0 0;
+    pointer-events: none;
+    background-repeat: repeat;
+    will-change: transform;
+}
+
+.cascada-brillante::before {
+    opacity: .48;
+    background-image:
+        radial-gradient(1px 1px at 20px 30px, rgba(255, 220, 239, .9) 50%, transparent 75%),
+        radial-gradient(1.5px 1.5px at 110px 90px, rgba(255, 174, 211, .8) 50%, transparent 75%),
+        radial-gradient(1px 1px at 175px 145px, rgba(255, 245, 250, .8) 50%, transparent 75%);
+    background-size: 220px 190px;
+    animation: particulas-lentas 26s linear infinite;
+}
+
+.cascada-brillante::after {
+    opacity: .28;
+    background-image:
+        radial-gradient(2px 2px at 55px 65px, rgba(255, 205, 230, .8) 45%, transparent 75%),
+        radial-gradient(1px 1px at 145px 155px, rgba(255, 238, 247, .85) 45%, transparent 75%);
+    background-size: 290px 250px;
+    animation: particulas-rapidas 18s linear infinite;
+}
+
+.cascada-brillante span:nth-child(1) {
+    opacity: .22;
+    background: linear-gradient(180deg, transparent, rgba(255, 151, 200, .16), transparent);
+    width: 1px;
+    left: 18%;
+    animation: destello-caida 13s linear infinite;
+}
+
+.cascada-brillante span:nth-child(2) {
+    opacity: .18;
+    background: linear-gradient(180deg, transparent, rgba(255, 211, 235, .2), transparent);
+    width: 1px;
+    left: 73%;
+    animation: destello-caida 17s linear infinite -6s;
+}
+
+.cascada-brillante span:nth-child(3) {
+    opacity: .15;
+    background: linear-gradient(180deg, transparent, rgba(255, 145, 195, .2), transparent);
+    width: 1px;
+    left: 88%;
+    animation: destello-caida 20s linear infinite -10s;
+}
+
+@keyframes brillo-caida {
+    from { background-position: 0 -170px, 0 -210px, 0 -190px, 0 -230px, 0 -200px; }
+    to   { background-position: 0 340px, 0 420px, 0 380px, 0 460px, 0 400px; }
+}
+
+@keyframes particulas-lentas {
+    from { transform: translateY(-8%); }
+    to   { transform: translateY(38%); }
+}
+
+@keyframes particulas-rapidas {
+    from { transform: translateY(-12%); }
+    to   { transform: translateY(48%); }
+}
+
+@keyframes destello-caida {
+    from { transform: translateY(-10%); }
+    to   { transform: translateY(150%); }
+}
+
+/* Sombra más profunda para que el sobre y la carta destaquen del fondo */
+.envoltura-sobre {
+    z-index: 2;
+    box-shadow:
+        0 18px 38px rgba(0, 0, 0, .38),
+        0 0 24px rgba(255, 137, 190, .20);
+}
+
+.carta {
+    box-shadow:
+        0 12px 28px rgba(28, 7, 22, .28),
+        0 0 12px rgba(255, 174, 211, .18);
+}
+
+h1 {
+    position: relative;
+    z-index: 2;
+    color: #fff1f7;
+    text-shadow: 0 2px 12px rgba(255, 151, 199, .32);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cascada-brillante,
+    .cascada-brillante::before,
+    .cascada-brillante::after,
+    .cascada-brillante span {
+        animation: none;
+    }
+}
+
+
+/* Escarcha con movimiento orgánico: cae y se balancea como pétalos */
+.cascada-brillante .petalo-brillante {
+    position: absolute;
+    top: -12%;
+    left: var(--x);
+    width: var(--tamano);
+    height: calc(var(--tamano) * 1.65);
+    border-radius: 80% 15% 75% 20%;
+    background: linear-gradient(145deg,
+        rgba(255, 245, 250, .88),
+        rgba(255, 167, 207, .52) 55%,
+        rgba(255, 225, 239, .18));
+    box-shadow: 0 0 7px rgba(255, 190, 220, .24);
+    opacity: .55;
+    transform: rotate(25deg);
+    animation: petalo-cayendo var(--duracion) ease-in-out var(--retraso) infinite;
+    will-change: transform, top;
+}
+
+@keyframes petalo-cayendo {
+    0% {
+        top: -12%;
+        transform: translate3d(0, 0, 0) rotate(0deg);
+        opacity: 0;
+    }
+    12% { opacity: .48; }
+    48% {
+        transform: translate3d(var(--deriva), 0, 0) rotate(150deg);
+    }
+    82% { opacity: .42; }
+    100% {
+        top: 110%;
+        transform: translate3d(calc(var(--deriva) * -0.55), 0, 0) rotate(330deg);
+        opacity: 0;
+    }
+}
+
+/* Confeti romántico: aparece en una ráfaga al abrir el sobre */
+.confeti-corazones {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.corazon-confeti {
+    position: absolute;
+    left: var(--x);
+    top: 56%;
+    color: #ff8fbd;
+    font-size: var(--tamano);
+    line-height: 1;
+    text-shadow: 0 2px 9px rgba(255, 105, 170, .34);
+    opacity: 0;
+    animation: corazon-explosion var(--duracion) cubic-bezier(.16,.72,.25,1) var(--retraso) forwards;
+    will-change: transform, opacity;
+}
+
+.corazon-confeti:nth-child(3n) { color: #ffd5e6; }
+.corazon-confeti:nth-child(3n + 1) { color: #f6a6ca; }
+
+@keyframes corazon-explosion {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 15px, 0) scale(.35) rotate(0deg);
+    }
+    12% { opacity: .95; }
+    72% { opacity: .9; }
+    100% {
+        opacity: 0;
+        transform: translate3d(var(--vuelo-x), var(--vuelo-y), 0) scale(1.05) rotate(var(--giro));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cascada-brillante .petalo-brillante,
+    .corazon-confeti .corazon-confeti {
+        animation: none;
+    }
+}
